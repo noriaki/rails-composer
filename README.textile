@@ -57,7 +57,7 @@ h2. Creating a Starter App
 To build a Rails application using the Rails Composer tool:
 
 <pre>
-$ rails new myapp -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb
+$ rails new myapp -m https://raw.github.com/noriaki/rails-composer/mongoid_spike/composer.rb
 </pre>
 
 Replace @myapp@ with the name of your application.
@@ -77,7 +77,7 @@ $ mkdir myapp
 $ cd myapp
 $ rvm use ruby-2.1.1@myapp --ruby-version --create
 $ gem install rails
-$ rails new . -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb
+$ rails new . -m https://raw.github.com/noriaki/rails-composer/mongoid_spike/composer.rb
 </pre>
 
 Instead of installing Rails into the global gemset and running @rails new@, we'll create a root directory for a new application, create a new gemset, install Rails, and then generate a starter application.
@@ -418,7 +418,7 @@ The @rails new@ command creates a new Rails application. If you want to use the 
 
 <pre>
 # ~/.railsrc
--m https://raw.github.com/RailsApps/rails-composer/master/composer.rb
+-m https://raw.github.com/noriaki/rails-composer/mongoid_spike/composer.rb
 </pre>
 
 h2. Documentation and Support
