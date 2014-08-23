@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # >---------------------------------------------------------------------------<
 #
 #            _____       _ _
@@ -797,8 +798,11 @@ if prefs[:prod_webserver] == 'same'
 end
 
 ## Database Adapter
-prefs[:database] = multiple_choice "Database used in development?", [["SQLite", "sqlite"], ["PostgreSQL", "postgresql"],
-  ["MySQL", "mysql"]] unless prefs.has_key? :database
+prefs[:database] = multiple_choice "Database used in development?", [
+  ["SQLite", "sqlite"],
+  ["PostgreSQL", "postgresql"],
+  ["MySQL", "mysql"],
+  ["Mongodb(mongoid)", "mongoid"]] unless prefs.has_key? :database
 
 ## Template Engine
 prefs[:templates] = multiple_choice "Template engine?", [["ERB", "erb"], ["Haml", "haml"], ["Slim", "slim"]] unless prefs.has_key? :templates
@@ -1114,6 +1118,8 @@ gsub_file 'Gemfile', /gem 'pg'.*/, ''
 add_gem 'pg' if prefer :database, 'postgresql'
 gsub_file 'Gemfile', /gem 'mysql2'.*/, ''
 add_gem 'mysql2' if prefer :database, 'mysql'
+gsub_file 'Gemfile', /gem 'mongoid'.*/, ''
+add_gem 'mongoid', :github => "mongoid/mongoid" if prefer :database, 'mongoid'
 
 ## Gem to set up controllers, views, and routing in the 'apps4' recipe
 add_gem 'rails_apps_pages', :group => :development if prefs[:apps4]

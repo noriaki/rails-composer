@@ -146,6 +146,7 @@ The application generator template will ask you for additional preferences. Opti
        1)  SQLite
        2)  PostgreSQL
        3)  MySQL
+       4)  Mongodb(mongoid)
  option  Template engine?
        1)  ERB
        2)  Haml
@@ -177,7 +178,7 @@ If you plan to deploy to Heroku, select Thin as your production webserver. Unico
 
 h4. Database
 
-Choose "SQLite" for the easiest setup. If you choose PostgreSQL or MySQL, the databases must be installed and running before you run Rails Composer.
+Choose "SQLite" for the easiest setup. If you choose PostgreSQL or MySQL or Mongodb(mongoid), the databases must be installed and running before you run Rails Composer.
 
 h4. Template Engine
 
@@ -237,6 +238,7 @@ question  Database used in development?
       1)  SQLite
       2)  PostgreSQL
       3)  MySQL
+      4)  Mongodb(mongoid)
 
 question  Template engine?
       1)  ERB
