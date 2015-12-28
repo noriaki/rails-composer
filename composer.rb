@@ -1119,7 +1119,7 @@ add_gem 'pg' if prefer :database, 'postgresql'
 gsub_file 'Gemfile', /gem 'mysql2'.*/, ''
 add_gem 'mysql2' if prefer :database, 'mysql'
 gsub_file 'Gemfile', /gem 'mongoid'.*/, ''
-add_gem 'mongoid', :github => "mongoid/mongoid" if prefer :database, 'mongoid'
+add_gem 'mongoid' if prefer :database, 'mongoid'
 
 ## Gem to set up controllers, views, and routing in the 'apps4' recipe
 add_gem 'rails_apps_pages', :group => :development if prefs[:apps4]
@@ -1254,15 +1254,20 @@ stage_two do
       gsub_file "config/database.yml", /database: myapp_test/,        "database: #{app_name}_test"
       gsub_file "config/database.yml", /database: myapp_production/,  "database: #{app_name}_production"
     end
-    unless prefer :database, 'sqlite'
-      if (prefs.has_key? :drop_database) ? prefs[:drop_database] :
-          (yes_wizard? "Okay to drop all existing databases named #{app_name}? 'No' will abort immediately!")
-        run 'bundle exec rake db:drop'
-      else
-        raise "aborted at user's request"
-      end
+    if prefer :database, 'mongoid'
+      generate "mongoid:config"
     end
-    run 'bundle exec rake db:create:all'
+    unless prefer :database, 'mongoid'
+      unless prefer :database, 'sqlite'
+        if (prefs.has_key? :drop_database) ? prefs[:drop_database] :
+            (yes_wizard? "Okay to drop all existing databases named #{app_name}? 'No' will abort immediately!")
+          run 'bundle exec rake db:drop'
+        else
+          raise "aborted at user's request"
+        end
+      end
+      run 'bundle exec rake db:create:all'
+    end
     ## Git
     git :add => '-A' if prefer :git, true
     git :commit => '-qm "rails_apps_composer: create database"' if prefer :git, true
